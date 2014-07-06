@@ -9,14 +9,14 @@ channel.createSticky('onCordovaInfoReady');
 channel.waitForInitialization('onCordovaInfoReady');
 
 
-// function locationInfo() {
+// function LocationInfo() {
 // this.cid = null;
 // alert("inside location info");
 // }
-// var me = new locationInfo();
+// var me = new LocationInfo();
 
-//var locationInfo = function() {
-function locationInfo() {
+//var LocationInfo = function() {
+function LocationInfo() {
 	this.cid = null;
 
 	channel.onCordovaReady.subscribe(function() {
@@ -37,12 +37,12 @@ function locationInfo() {
 //
 
 
-locationInfo.prototype.getInfo = function(successCallback, errorCallback) {
+LocationInfo.prototype.getInfo = function(successCallback, errorCallback) {
 	alert("prototype");
-	argscheck.checkArgs('fF', 'locationInfo.getInfo', arguments);
+	argscheck.checkArgs('fF', 'LocationInfo.getInfo', arguments);
 	exec(successCallback, errorCallback, 'LocationInfo', 'getCID', []);
 }
 
 //module.exports = me;
-// var locationInfo = new locationInfo();
- module.exports = new locationInfo();
+// var LocationInfo = new LocationInfo();
+ module.exports = new LocationInfo();

@@ -23,7 +23,7 @@ public class LocationInfo extends CordovaPlugin {
 	 /**
      * Constructor.
      */
-    public locationInfo() {
+    public LocationInfo() {
     }
     
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
