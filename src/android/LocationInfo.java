@@ -20,43 +20,43 @@ public class LocationInfo extends CordovaPlugin {
 
 	public static final String ACTION = "getCID";
 
-	 /**
-     * Constructor.
-     */
-    public LocationInfo() {
-    }
-    
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-    }
-    
+	/**
+	 * Constructor.
+	 */
+	public LocationInfo() {
+	}
+
+	@Override
+	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+		super.initialize(cordova, webView);
+	}
+
 	@Override
 	public boolean execute(String action, JSONArray data,
 			CallbackContext callbackContext) throws JSONException {
 
-		try {
-			if (action.equals(ACTION)) {
-				
-				JSONObject r = new JSONObject();
-				r.put("cid", this.getCellID());
-				callbackContext.success(r);
-				return true;
-			}
-			callbackContext.error("Invalid action");
-			return false;
-		} catch (Exception e) {
-			System.err.println("Exception: " + e.getMessage());
-			callbackContext.error(e.getMessage());
-			return false;
+		if (action.equals(ACTION)) {
+
+			this.getCID(callbackContext);
+			return true;
 		}
+		return false;
+
 	}
 
-	public int getCellID() throws IOException {
-		TelephonyManager tm = (TelephonyManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+	public void getCID(CallbackContext callbackContext) throws IOException {
+		TelephonyManager tm = (TelephonyManager) this.cordova.getActivity()
+				.getApplicationContext()
+				.getSystemService(Context.TELEPHONY_SERVICE);
 		GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
 		int cellID = location.getCid();
-		Log.i("Cell ID", cellID+"");
-		return cellID;
+		Log.i("Cell ID", cellID + "");
+		if (cellID != null) {
+			callbackContext.success(cellID + "");
+		} else {
+			callbackContext.error("Cell ID is null");
+		}
+
 	}
 
 }
